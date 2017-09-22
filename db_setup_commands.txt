@@ -1,3 +1,4 @@
+use Loc8r
 
 db.locations.save({
   name: 'Starcups'
@@ -9,7 +10,7 @@ db.locations.save({
     days: 'Monday - Friday',
     opening: '7:00am',
     closing: '7:00pm;,
-    closed: false  
+    closed: false
   }, {
     days: 'Saturday',
     opening: '8:00am',
@@ -49,4 +50,3 @@ db.locations.update({
     }
   }
 })
-
