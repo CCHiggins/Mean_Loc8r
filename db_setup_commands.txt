@@ -1,15 +1,16 @@
 use Loc8r
 
+
 db.locations.save({
-  name: 'Starcups'
+  name: 'Starcups',
   address: '125 High Street, Reading, RG6 1PS',
   rating: 3,
   facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-  coords: [0.9690884, 51.455041],
+  coords: [-0.9690884, 51.455041],
   openingTimes: [{
     days: 'Monday - Friday',
     opening: '7:00am',
-    closing: '7:00pm;,
+    closing: '7:00pm',
     closed: false
   }, {
     days: 'Saturday',
@@ -21,6 +22,7 @@ db.locations.save({
     closed: true
   }]
 })
+
 
 db.locations.update({
   name: 'Starcups'
@@ -47,6 +49,92 @@ db.locations.update({
       rating: 3,
       timestamp: new Date("Sep 22, 2017"),
       reviewText: "It's okay."
+    }
+  }
+})
+
+
+db.locations.save({
+  name: 'Cafe Hero',
+  address: '125 High Street, Reading, RG6 1PS',
+  rating: 4,
+  facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+  coords: [-0.9690884, 51.455100],
+  openingTimes: [{
+    days: 'Monday - Friday',
+    opening: '7:00am',
+    closing: '7:00pm',
+    closed: false
+  }, {
+    days: 'Saturday',
+    closed: true
+  }, {
+    days: 'Sunday',
+    closed: true
+  }]
+})
+
+db.locations.update({
+  name: 'Cafe Hero'
+}, {
+  $push: {
+    reviews : {
+      author: 'Cameron Higgins',
+      _id: ObjectId(),
+      rating: 4,
+      timestamp: new Date("Sep 1, 2017"),
+      reviewText: "Very nice but closed on the weekends =/"
+    }
+  }
+})
+
+
+db.locations.save({
+  name: 'Burger Queen',
+  address: '125 High Street, Reading, RG6 1PS',
+  rating: 2,
+  facilities: ['Food', 'Premium wifi'],
+  coords: [-0.9690100, 51.455041],
+  openingTimes: [{
+    days: 'Monday - Friday',
+    opening: '7:00am',
+    closing: '7:00pm',
+    closed: false
+  }, {
+    days: 'Saturday',
+    opening: '9:00am',
+    closing: '5:00pm',
+    closed: false
+  }, {
+    days: 'Sunday',
+    closed: true
+  }]
+})
+
+db.locations.update({
+  name: 'Burger Queen'
+}, {
+  $push: {
+    reviews : {
+      author: 'Cameron Higgins',
+      _id: ObjectId(),
+      rating: 3,
+      timestamp: new Date("Sep 4, 2017"),
+      reviewText: "It's fine for what it is."
+    }
+  }
+})
+
+db.locations.update({
+  name: 'Burger Queen'
+}, {
+  $push: {
+    reviews : {
+      author: 'Simon Holmes',
+      _id: ObjectId(),
+      rating: 1,
+      timestamp: new Date("Mar 21, 2017"),
+      reviewText: "I hate this place!"
     }
   }
 })
