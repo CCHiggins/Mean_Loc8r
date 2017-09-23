@@ -1,3 +1,6 @@
+(cloud connection uri mongodb://cam:***********@ds147304.mlab.com:47304/cam-loc8r)
+
+
 use Loc8r
 
 
