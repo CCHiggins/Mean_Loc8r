@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const openingTimeSchema = new mongoose.Schema({
   days: {
     type: String,
@@ -7,7 +9,7 @@ const openingTimeSchema = new mongoose.Schema({
   closing: String,
   closed: {
     type: Boolean,
-    required: ture
+    required: true
   }
 });
 
@@ -18,7 +20,7 @@ const reviewSchema = new mongoose.Schema({
     required: true,
     min: 0,
     max: 5
-  }
+  },
   reviewText: String,
   createdOn: {
     type: Date,
@@ -47,4 +49,4 @@ const locationSchema = new mongoose.Schema({
   reviews: [reviewSchema]
 });
 
-mongoose.model('Location',locationSchema);
+mongoose.model('Location', locationSchema);

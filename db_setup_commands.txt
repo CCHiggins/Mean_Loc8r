@@ -1,5 +1,7 @@
-(cloud connection uri mongodb://cam:***********@ds147304.mlab.com:47304/cam-loc8r)
-
+(cloud connection uri mongodb://Cam:***********@ds147304.mlab.com:47304/cam-loc8r)
+(heroku config
+  heroku config:set MLAB_URI=mongodb://Cam:***********@ds147304.mlab.com:47304/cam-loc8r
+)
 
 use Loc8r
 
