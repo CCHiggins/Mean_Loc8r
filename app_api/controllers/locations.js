@@ -15,7 +15,7 @@ const locationsListByDistance = function (req, res) {
 
 const locationsReadOne = function (req, res) {
   Loc
-    .findByID(req.params.locationid)
+    .findById(req.params.locationid)
     .exec((err, location) => {
       res
         .status(200)
