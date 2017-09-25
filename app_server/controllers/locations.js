@@ -6,8 +6,8 @@ if (process.env.NODE_ENV === 'production') {
   apiOptions.server = 'https://sleepy-escarpment-73664.herokuapp.com/';
 }
 
-/* GET 'home' page */
-const homelist = function(req, res){
+//private helper functions!
+const _renderHomepage = function(req, res) {
   res.render('locations-list', {
     title: 'Loc8r - find a place to work with wifi',
     pageHeader: {
@@ -35,6 +35,11 @@ const homelist = function(req, res){
         distance: '250m'
     }]
   });
+}
+
+/* GET 'home' page */
+const homelist = function(req, res){
+  _renderHomepage(req, res);
 };
 
 /* GET 'Location info' page */
