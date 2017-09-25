@@ -40,9 +40,9 @@ const locationsListByDistance = function (req, res) {
     coordinates: [lng, lat]
   };
   const geoOptions = {
-    spherical: true,
-    maxDistance: 20000,
-    num: 10
+    "spherical": true,
+    "maxDistance": maxDistance,
+    "num": 10
   };
   if (!lng || !lat || !maxDistance) {
     res
@@ -166,9 +166,27 @@ const locationsUpdateOne = function (req, res) {
 };
 
 const locationsDeleteOne = function (req, res) {
-  res
-    .status(200)
-    .json({"status" : "success"});
+  const locationid = req.params.locationid;
+  if (locationid) {
+    Loc
+      .finxByIdAndRemove(locationid)
+      .exec((err, location) => {
+        if (err) {
+          res
+            .status(404)
+            .json(err);
+        }
+        res
+          .status(204)
+          .json(null);
+      });
+  } else {
+    res
+      .status(404)
+      .json({
+        "message": "No locationid"
+      });
+  }
 };
 
 module.exports = {
