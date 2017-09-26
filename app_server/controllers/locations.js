@@ -22,7 +22,13 @@ const homelist = function(req, res){
   request(
     requestOptions,
     (err, response, body) => {
-        _renderHomepage(req, res, body);
+      let data = body;
+      if (response.statusCode === 200 && data.length){
+        for (let i = 0; i < data.length; i++){
+          data[i].distance = _formatDistance(data[i].distance);
+        }
+      }
+      _renderHomepage(req, res, data);
     }
   );
 };
@@ -85,7 +91,16 @@ const addReview = function(req, res){
 };
 
 //PRIVATE HELPER functions
-const _renderHomepage = function(req, res, responseBody){
+const _renderHomepage = function (req, res, responseBody) {
+  let message = null;
+  if (!(responseBody instanceof Array)) {
+    message = "API lookup error";
+    responseBody = [];
+  } else {
+    if (!responseBody.length){
+      message = "No places found nearby";
+    }
+  }
   res.render('locations-list', {
     title: 'Loc8r - find a place to work with wifi',
     pageHeader: {
@@ -93,9 +108,31 @@ const _renderHomepage = function(req, res, responseBody){
       strapline: 'Find places to work with wifi near you!'
     },
     sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake, or a pint? Let Loc8r help you find the place you're looking for.",
-    locations: responseBody
+    locations: responseBody,
+    message: message
   });
 };
+
+const _isNumeric = function (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+const _formatDistance = function (distance) {
+  if (distance && _isNumeric(distance)){
+    let thisDistance = 0;
+    let unit = 'm';
+    if (distance > 1000) {
+      thisDistance = parseFloat(distance / 1000).toFixed(1);
+      unit = 'km';
+    } else {
+      thisDistance = Math.floor(distance);
+    }
+    return thisDistance + unit;
+  } else {
+    return '?';
+  }
+};
+
 module.exports = {
   homelist,
   locationInfo,
