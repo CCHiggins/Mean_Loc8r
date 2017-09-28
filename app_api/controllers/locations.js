@@ -44,7 +44,7 @@ const locationsListByDistance = function (req, res) {
     "maxDistance": maxDistance,
     "num": 10
   };
-  if (!lng || !lat || !maxDistance) {
+  if ((!lng && lng !== 0) || (!lat && lat !== 0) || !maxDistance) {
     res
       .status(404)
       .json({
