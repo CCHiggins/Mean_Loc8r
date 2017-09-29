@@ -45,11 +45,15 @@ const locationInfo = function(req, res){
     requestOptions,
     (err, response, body) => {
       let data = body;
-      data.coords = {
-        lng : body.coords[0],
-        lat : body.coords[1]
-      };
-      _renderDetailPage(req, res, data);
+      if (response.statusCode === 200){
+        data.coords = {
+          lng : body.coords[0],
+          lat : body.coords[1]
+        };
+        _renderDetailPage(req, res, data);
+      } else {
+        _showError(req, res, response.statusCode);
+      }
     }
   );
 };
@@ -96,6 +100,23 @@ const _renderDetailPage = function (req, res, locDetail) {
       callToAction: 'If you\'ve been and you like it - or if you don\'t - please leave a review to help other people just like you.'
     },
     location: locDetail
+  });
+};
+
+const _showError = function (req, res, status) {
+  let title = '';
+  let content = '';
+  if (status === 404) {
+    title = '404, page not found';
+    content = 'Oh dear. Looks like we can\'t find this page. Sorry.';
+  } else {
+    title = `${status}, something's gone wrong`;
+    content = 'Something, somewhere, has gone just a little bit wrong.';
+  }
+  res.render(status);
+  res.render('generic-text', {
+    title : title,
+    content : content
   });
 };
 
